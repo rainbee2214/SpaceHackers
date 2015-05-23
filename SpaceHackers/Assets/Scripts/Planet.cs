@@ -84,7 +84,7 @@ public class Planet : MonoBehaviour
         //Each planet, based on it's radius, will have a max quota of resources
         junk = 0; organics = 0; metals = 0; crystals = 0; people = 0;
         int count = 0;
-        while (count < radius)
+        while (count < radius/5f)
         {
             switch (Random.Range(0, 500) % 10)
             {
@@ -127,7 +127,7 @@ public class Planet : MonoBehaviour
         //Start planet mining game over planet.
 
         GameController.controller.CurrentPlanetLocation = transform.position;
-        GameController.controller.CurrentPlanetRadius = radius/50f + 0.25f; //for a ship buffer
+        GameController.controller.CurrentPlanetRadius = radius / 50f + 0.25f; //for a ship buffer
         GameController.controller.StartingLocation = Camera.main.transform.position;
         GameController.controller.StartMiniGame();
         GameController.controller.player.GetComponent<RotateShip>().StartOrbit();
@@ -140,9 +140,9 @@ public class Planet : MonoBehaviour
     {
         float x = transform.position.x, y = transform.position.y;
         float r = radius / 120f;
-        x += ((Random.Range(-r, r)+0.001f)*2);
-        y += ((Random.Range(-r, r)+0.001f)*2);
-        return new Vector2(x,y);
+        x += ((Random.Range(-r, r) + 0.001f) * 2);
+        y += ((Random.Range(-r, r) + 0.001f) * 2);
+        return new Vector2(x, y);
     }
 
     void Update()
@@ -161,8 +161,8 @@ public class Planet : MonoBehaviour
                             {
                                 if (crystals > 0)
                                 {
-                                    //Debug.Log("Turning on the crystal.");
-                                    GameController.controller.miniGameController.StartResource("Crystals", location);
+                                    Debug.Log("Turning on the crystal.");
+                                    //GameController.controller.miniGameController.StartResource("Crystals", location);
                                     foundResource = true;
                                     crystals--;
                                 }
@@ -172,8 +172,8 @@ public class Planet : MonoBehaviour
                             {
                                 if (organics > 0)
                                 {
-                                    //Debug.Log("Turning on the organics.");
-                                    GameController.controller.miniGameController.StartResource("Organics", location);
+                                    Debug.Log("Turning on the organics.");
+                                    //GameController.controller.miniGameController.StartResource("Organics", location);
                                     foundResource = true;
                                     organics--;
                                 }
@@ -183,8 +183,8 @@ public class Planet : MonoBehaviour
                             {
                                 if (metals > 0)
                                 {
-                                    //Debug.Log("Turning on the metals.");
-                                    GameController.controller.miniGameController.StartResource("Metals", location);
+                                    Debug.Log("Turning on the metals.");
+                                    //GameController.controller.miniGameController.StartResource("Metals", location);
                                     foundResource = true;
                                     metals--;
                                 }
@@ -194,8 +194,8 @@ public class Planet : MonoBehaviour
                             {
                                 if (people > 0)
                                 {
-                                    //Debug.Log("Turning on the people.");
-                                    GameController.controller.miniGameController.StartResource("People", location);
+                                    Debug.Log("Turning on the people.");
+                                    //GameController.controller.miniGameController.StartResource("People", location);
                                     foundResource = true;
                                     people--;
                                 }
@@ -205,8 +205,8 @@ public class Planet : MonoBehaviour
                             {
                                 if (junk > 0)
                                 {
-                                    //Debug.Log("Turning on the junk.");
-                                    GameController.controller.miniGameController.StartResource("Junk", location);
+                                    Debug.Log("Turning on the junk.");
+                                    //GameController.controller.miniGameController.StartResource("Junk", location);
                                     foundResource = true;
                                     junk--;
                                 }
