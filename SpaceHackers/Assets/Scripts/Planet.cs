@@ -125,6 +125,7 @@ public class Planet : MonoBehaviour
         //Set the planet location that was touched
         //Set the camera starting position (to go back to after the mini game)
         //Start planet mining game over planet.
+        GetComponentInParent<Star>().stop = true;
 
         GameController.controller.CurrentPlanetLocation = transform.position;
         GameController.controller.CurrentPlanetRadius = radius / 50f + 0.25f; //for a ship buffer
@@ -232,6 +233,7 @@ public class Planet : MonoBehaviour
         GameController.controller.StopMiniGame();
         GameController.controller.player.GetComponent<RotateShip>().StopOrbit();
         playingGame = false;
+        GetComponentInParent<Star>().stop = false;
     }
 
     bool EmptyResources()
