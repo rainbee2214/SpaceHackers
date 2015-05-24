@@ -24,9 +24,9 @@ public class PlanetRotation : MonoBehaviour
         set { speed += value; }
     }
 
-    public void Rotate()
+    public void Rotate(Vector3 position)
     {
         theta += speed;
-        transform.position = new Vector3(radius*Mathf.Sin(theta), radius*Mathf.Cos(theta), -1f);
+        transform.position = new Vector3(position.x + radius*Mathf.Sin(theta), position.y + radius*Mathf.Cos(theta), -1f);
     }
 }

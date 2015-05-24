@@ -30,7 +30,7 @@ public class Star : MonoBehaviour
             Vector3 position = Vector3.zero;
             for (int i = 0; i < planetRotations.Count; i++)
             {
-                planetRotations[i].Rotate();
+                planetRotations[i].Rotate(transform.position);
             }
 
         }
