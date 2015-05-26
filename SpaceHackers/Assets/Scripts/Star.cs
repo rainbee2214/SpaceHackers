@@ -7,6 +7,8 @@ public class Star : MonoBehaviour
     const float MAX_SPEED = 0.001f;
     const float MIN_SPEED = 0.005f;
 
+
+
     float radius;
     int numberOfPlanets;
 
