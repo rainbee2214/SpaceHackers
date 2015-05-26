@@ -7,8 +7,6 @@ public class Star : MonoBehaviour
     const float MAX_SPEED = 0.001f;
     const float MIN_SPEED = 0.005f;
 
-
-
     float radius;
     int numberOfPlanets;
 
@@ -70,4 +68,13 @@ public class Star : MonoBehaviour
             planetRotations[planetRotations.Count - 1].speed = Random.Range(MIN_SPEED, MAX_SPEED);
         }
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            Application.LoadLevel("GameOver");
+        }
+    }
+
 }

@@ -202,17 +202,6 @@ public class GameController : MonoBehaviour
             Application.LoadLevel("GameOver");
         }
 
-        if (Application.loadedLevelName == "GameOver")
-        {
-            mainCam.SetActive(false);
-            Destroy(this);
-        }
-        else if (Application.loadedLevelName == "Setup")
-        {
-            shieldCount = 3;
-            playerDead = false;
-            mainCam.SetActive(true);
-        }
     }
 
     public void UpdateCurrentPlanetResources(string planetName, int cc, int oc, int mc, int pc, int jc)
