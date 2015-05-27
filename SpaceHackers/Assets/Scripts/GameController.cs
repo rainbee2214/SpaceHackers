@@ -11,8 +11,6 @@ public class GameController : MonoBehaviour
     [HideInInspector]
     public MiniGameController miniGameController;
 
-    public GameObject mainCam;
-
     #region Properties
 
     int shieldCount = 3;
@@ -178,11 +176,14 @@ public class GameController : MonoBehaviour
         controller.player.GetComponent<RotateShip>().StartOrbit();
         controller.CurrentPlanetRadius = radius;
         controller.UpdateCurrentPlanetResources(currentName, crystals, organics, metals, people, junk);
+
+        Camera.main.GetComponent<CameraFollow>().pause = true;
     }
 
     public void StopMiniGame()
     {
         controller.player.GetComponent<RotateShip>().StopOrbit();
+        Camera.main.GetComponent<CameraFollow>().pause = false;
     }
 
 
