@@ -170,25 +170,22 @@ public class GameController : MonoBehaviour
         miniGameController = GetComponentInChildren<MiniGameController>();
     }
 
-    public void StartMiniGame()
+    public void StartMiniGame(Vector3 cameraPosition, Vector3 planetLocation, float radius,
+                            string currentName, int crystals, int organics, int metals, int people, int junk)
     {
-        //cameraController.stop = true;
-        //cameraController.moveToPlanet = true;
-        //if (planetUIController != null) planetUIController.TurnOn();
+        controller.StartingLocation = cameraPosition;
+        controller.CurrentPlanetLocation = planetLocation;
+        controller.player.GetComponent<RotateShip>().StartOrbit();
+        controller.CurrentPlanetRadius = radius;
+        controller.UpdateCurrentPlanetResources(currentName, crystals, organics, metals, people, junk);
     }
 
     public void StopMiniGame()
     {
-        //cameraController.moveToPlanet = false;
-        //cameraController.readyToStart = true;
-        //cameraController.turnOnTime = Time.time + cameraController.lerpDelay;
-        //if (planetUIController != null) planetUIController.TurnOff();
+        controller.player.GetComponent<RotateShip>().StopOrbit();
     }
 
-    public void SetName()
-    {
-        //if (uiController != null) uiController.SetName(raceType, playerName);
-    }
+
 
     void Update()
     {

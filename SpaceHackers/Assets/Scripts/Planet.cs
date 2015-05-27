@@ -15,11 +15,12 @@ public class Planet : MonoBehaviour
     float emitDelay = 0.5f;
 
     public string currentName;
+    public bool dead = false;
 
     void Awake()
     {
         //Get the planet radius from the collider
-        radius = GetComponent<CircleCollider2D>().radius * 50;
+        radius = GetComponent<CircleCollider2D>().radius * 25;
         GetComponent<CircleCollider2D>().radius = (radius / 50f) * 1.25f;
         SetupPlanet();
     }
@@ -112,7 +113,7 @@ public class Planet : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player") StartMiniGame();
+        if (other.tag == "Player" && !dead) StartMiniGame();
     }
 
     public void OnTriggerExit2D(Collider2D other)
@@ -127,14 +128,16 @@ public class Planet : MonoBehaviour
         //Start planet mining game over planet.
         GetComponentInParent<Star>().stop = true;
 
-        GameController.controller.CurrentPlanetLocation = transform.position;
-        GameController.controller.CurrentPlanetRadius = radius / 50f + 0.25f; //for a ship buffer
-        GameController.controller.StartingLocation = Camera.main.transform.position;
-        GameController.controller.StartMiniGame();
-        GameController.controller.player.GetComponent<RotateShip>().StartOrbit();
-        GameController.controller.UpdateCurrentPlanetResources(currentName, crystals, organics, metals, people, junk);
+        GameController.controller.StartMiniGame(Camera.main.transform.position, transform.position, radius / 50f + 0.25f, currentName, crystals, organics, metals, people, junk);
         playingGame = true;
         nextEmitTime = Time.time;
+    }
+
+    public void StopMiniGame()
+    {
+        GameController.controller.StopMiniGame();
+        playingGame = false;
+        GetComponentInParent<Star>().stop = false;
     }
 
     Vector2 GetRandomLocationOnPlanet()
@@ -162,8 +165,8 @@ public class Planet : MonoBehaviour
                             {
                                 if (crystals > 0)
                                 {
-                                    Debug.Log("Turning on the crystal.");
-                                    //GameController.controller.miniGameController.StartResource("Crystals", location);
+                                    //Debug.Log("Turning on the crystal.");
+                                    GameController.controller.miniGameController.StartResource("Crystals", location);
                                     foundResource = true;
                                     crystals--;
                                 }
@@ -173,8 +176,8 @@ public class Planet : MonoBehaviour
                             {
                                 if (organics > 0)
                                 {
-                                    Debug.Log("Turning on the organics.");
-                                    //GameController.controller.miniGameController.StartResource("Organics", location);
+                                    //Debug.Log("Turning on the organics.");
+                                    GameController.controller.miniGameController.StartResource("Organics", location);
                                     foundResource = true;
                                     organics--;
                                 }
@@ -184,8 +187,8 @@ public class Planet : MonoBehaviour
                             {
                                 if (metals > 0)
                                 {
-                                    Debug.Log("Turning on the metals.");
-                                    //GameController.controller.miniGameController.StartResource("Metals", location);
+                                    //Debug.Log("Turning on the metals.");
+                                    GameController.controller.miniGameController.StartResource("Metals", location);
                                     foundResource = true;
                                     metals--;
                                 }
@@ -195,8 +198,8 @@ public class Planet : MonoBehaviour
                             {
                                 if (people > 0)
                                 {
-                                    Debug.Log("Turning on the people.");
-                                    //GameController.controller.miniGameController.StartResource("People", location);
+                                    //Debug.Log("Turning on the people.");
+                                    GameController.controller.miniGameController.StartResource("People", location);
                                     foundResource = true;
                                     people--;
                                 }
@@ -206,8 +209,8 @@ public class Planet : MonoBehaviour
                             {
                                 if (junk > 0)
                                 {
-                                    Debug.Log("Turning on the junk.");
-                                    //GameController.controller.miniGameController.StartResource("Junk", location);
+                                    //Debug.Log("Turning on the junk.");
+                                    GameController.controller.miniGameController.StartResource("Junk", location);
                                     foundResource = true;
                                     junk--;
                                 }
@@ -220,21 +223,13 @@ public class Planet : MonoBehaviour
             }
             else
             {
+                dead = true;
                 playingGame = false;
                 StopMiniGame();
             }
         }
-
-
     }
 
-    public void StopMiniGame()
-    {
-        GameController.controller.StopMiniGame();
-        GameController.controller.player.GetComponent<RotateShip>().StopOrbit();
-        playingGame = false;
-        GetComponentInParent<Star>().stop = false;
-    }
 
     bool EmptyResources()
     {

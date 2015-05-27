@@ -19,8 +19,9 @@ public class MiniGameController : MonoBehaviour
         GetResources();
     }
     
-    public void StartResource(string resourceType, Vector2 location)
+    public void StartResource(string resourceType, Vector3 location)
     {
+        location.z -= 2;
         switch (resourceType)
         {
             case "Crystals":
@@ -69,11 +70,11 @@ public class MiniGameController : MonoBehaviour
     void GetResources()
     {
         resources = new List<GameObject>();
-        resources.Add(Resources.Load("Assets/Prefabs/Resource/Crystals", typeof(GameObject)) as GameObject);
-        resources.Add(Resources.Load("Assets/Prefabs/Resource/Organics", typeof(GameObject)) as GameObject);
-        resources.Add(Resources.Load("Assets/Prefabs/Resource/Metals", typeof(GameObject)) as GameObject);
-        resources.Add(Resources.Load("Assets/Prefabs/Resource/People", typeof(GameObject)) as GameObject);
-        resources.Add(Resources.Load("Assets/Prefabs/Resource/Junk", typeof(GameObject)) as GameObject);
+        resources.Add(Resources.Load("Prefabs/Resource/Crystals", typeof(GameObject)) as GameObject);
+        resources.Add(Resources.Load("Prefabs/Resource/Organics", typeof(GameObject)) as GameObject);
+        resources.Add(Resources.Load("Prefabs/Resource/Metals", typeof(GameObject)) as GameObject);
+        resources.Add(Resources.Load("Prefabs/Resource/People", typeof(GameObject)) as GameObject);
+        resources.Add(Resources.Load("Prefabs/Resource/Junk", typeof(GameObject)) as GameObject);
 
         crystalPool = new List<GameObject>();
         organicsPool = new List<GameObject>();
