@@ -14,7 +14,6 @@ public class PlanetGenerator : MonoBehaviour
         {
             planets.Add(Resources.Load("Prefabs/Planets/Planet" + i++, typeof(GameObject)) as GameObject);
         }
-        Debug.Log(planets[23].name);
     }
 
     public static GameObject GetPlanet()

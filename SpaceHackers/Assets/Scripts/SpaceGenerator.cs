@@ -2,6 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 
+public struct SolarSystem
+{
+    public GameObject star;
+    public Vector2 location;
+    public int sectorIndex;
+}
+
 public class SpaceGenerator : MonoBehaviour
 {
     const int lowerRange = 25;
@@ -15,6 +22,9 @@ public class SpaceGenerator : MonoBehaviour
     int TOP = 0;
     public List<SpriteRenderer> starTiles;
     public List<Vector2> sectorLocations;
+    public List<SolarSystem> solarSystems;
+
+    List<GameObject> baseStars;
 
     public Color targetColor;
     public float speed = 0.2f;
@@ -26,26 +36,34 @@ public class SpaceGenerator : MonoBehaviour
     public int currentSector;
     public GameObject player;
 
-    void Start()
+    float sectorCheckDelay = 0.3f;
+    float nextSectorCheckTime;
+
+    void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         stars = Resources.Load("Sprites/Backgrounds/BlackStarsBig", typeof(Sprite)) as Sprite;
         starTiles = new List<SpriteRenderer>();
         sectorLocations = new List<Vector2>();
+        solarSystems = new List<SolarSystem>();
+        baseStars = new List<GameObject>();
         Vector2 position = Vector2.zero;
 
         BuildSectorPoints();
         for(int i = 0; i < poolSize; i++)
         {
-            AddStarTile(Vector2.zero);
+            AddStarTile(Vector2.zero, i);
         }
 
         DisplayStarsAtLocation(sectorLocations[currentSector]);
     }
 
-    public void AddStarTile(Vector2 location)
+
+    public void AddStarTile(Vector2 location, int i)
     {
-        GameObject tile = new GameObject("Sector001");
+        int j = Random.Range(0, 10);
+        int c = Random.Range('A', 'Z');
+        GameObject tile = new GameObject("Sector "+j+"-"+(char)c+i);
         tile.transform.position = location;
         tile.transform.SetParent(transform);
         tile.AddComponent<SpriteRenderer>();
@@ -55,6 +73,7 @@ public class SpaceGenerator : MonoBehaviour
 
     public void BuildSectorPoints()
     {
+        LoadBaseStars();
         float worldWidth = 1000, worldHeight = 1000;
         Vector2 origin = new Vector2(-worldWidth / 2f, -worldHeight / 2f);
         Vector2 location = Vector2.zero;
@@ -65,18 +84,38 @@ public class SpaceGenerator : MonoBehaviour
             {
                 location.Set(origin.x + w, origin.y + h);
                 sectorLocations.Add(location);
+
+                Vector2 deltaLocation = new Vector2(Random.Range(-1f, 1), Random.Range(-1f, 1f));
+                SolarSystem system = new SolarSystem();
+                system.sectorIndex = sectorLocations.Count - 1;
+                system.location = location + deltaLocation;
+                system.star = Instantiate(baseStars[Random.Range(0, 50)], system.location, Quaternion.identity) as GameObject;
+                system.star.transform.SetParent(transform);
+                system.star.SetActive(false);
+                solarSystems.Add(system);
             }
         }
 
         currentSector = sectorLocations.Count / 2;
+        solarSystems[currentSector].star.SetActive(true);
+    }
 
+    void LoadBaseStars()
+    {
+        for (int i = 0; i < 50; i++)
+        {
+            baseStars.Add(Resources.Load("Prefabs/Stars/Star" + Random.Range(1, 51), typeof(GameObject)) as GameObject);
+        }
     }
 
     public void ChangeSector(Vector2 origin)
     {
+        //solarSystems[lastSector].star.SetActive(false);
+        solarSystems[currentSector].star.SetActive(true);
         DisplayStarsAtLocation(origin);
         ChangeToRandomColor();
         Debug.Log("Changing Sector");
+
     }
 
     void DisplayStarsAtLocation(Vector2 origin)
@@ -135,10 +174,15 @@ public class SpaceGenerator : MonoBehaviour
         return index;
     }
     
-    void Update()
+    void FixedUpdate()
     {
-        currentSector = DiscoverCurrentSector(player.transform.position);
-        if (currentSector != lastSector) changeSector = true;
+        if (Time.time > nextSectorCheckTime)
+        {
+            currentSector = DiscoverCurrentSector(player.transform.position);
+            if (currentSector != lastSector) changeSector = true;
+
+            nextSectorCheckTime = Time.time + sectorCheckDelay;
+        }
 
         if (changeColor)
         {
@@ -147,9 +191,9 @@ public class SpaceGenerator : MonoBehaviour
         }
         if (changeSector)
         {
-            lastSector = currentSector;
             changeSector = false;
             ChangeSector(sectorLocations[currentSector]);
+            lastSector = currentSector;
         }
         if (incrementSector)
         {

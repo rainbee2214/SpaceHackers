@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class Star : MonoBehaviour
 {
-    const float MAX_SPEED = 0.001f;
-    const float MIN_SPEED = 0.005f;
+    const float MAX_SPEED = 0.0001f;
+    const float MIN_SPEED = 0.001f;
 
     float radius;
     int numberOfPlanets;
@@ -14,6 +14,10 @@ public class Star : MonoBehaviour
     List<PlanetRotation> planetRotations;
 
     public bool stop = false;
+
+    float dangerDelay = 3f;
+    bool inDanger = false;
+    float dangerZoneTime;
 
     void Awake()
     {
@@ -34,11 +38,13 @@ public class Star : MonoBehaviour
             }
 
         }
+        if (inDanger) Debug.Log("In Danger!! Get Away from the sun!!");
+        if (inDanger && Time.time > dangerZoneTime) Application.LoadLevel("GameOver");
     }
 
     void SetupStar()
     {
-        numberOfPlanets = (int)radius / 18;
+        numberOfPlanets = (int)radius / 25;
         GetPlanets();
     }
 
@@ -52,7 +58,7 @@ public class Star : MonoBehaviour
 
         for (int i = 0; i < numberOfPlanets; i++)
         {
-            r = Random.Range(radius/30, radius/3);
+            r = Random.Range(radius/20, radius/4);
             location.Set(r, location.y, -1f);
             planets.Add(Instantiate(PlanetGenerator.GetPlanet(), location, Quaternion.identity) as GameObject);
             planets[i].transform.SetParent(transform);
@@ -73,7 +79,16 @@ public class Star : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Application.LoadLevel("GameOver");
+            inDanger = true;
+            dangerZoneTime = Time.time + dangerDelay;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            inDanger = false;
         }
     }
 
