@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 921c8e4c373d74947a6907a541fea70e
-timeCreated: 1429369437
+timeCreated: 1433811985
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -44,13 +44,13 @@ TextureImporter:
     21300074: roguelikeitems_1_37
     21300076: roguelikeitems_1_38
     21300078: roguelikeitems_1_39
-    21300080: roguelikeitems_1_40
-    21300082: roguelikeitems_1_41
-    21300084: junk
-    21300086: roguelikeitems_1_43
-    21300088: roguelikeitems_1_44
-    21300090: roguelikeitems_1_45
-    21300092: roguelikeitems_1_46
+    21300080: junk1
+    21300082: junk2
+    21300084: junk3
+    21300086: junk4
+    21300088: junk5
+    21300090: junk6
+    21300092: junk7
     21300094: roguelikeitems_1_47
     21300096: roguelikeitems_1_48
     21300098: roguelikeitems_1_49
@@ -611,7 +611,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: roguelikeitems_1_40
+    - name: junk1
       rect:
         serializedVersion: 2
         x: 1
@@ -621,7 +621,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: roguelikeitems_1_41
+    - name: junk2
       rect:
         serializedVersion: 2
         x: 17
@@ -631,17 +631,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: junk
+    - name: junk3
       rect:
         serializedVersion: 2
-        x: 33
+        x: 34
         y: 163
         width: 15
         height: 9
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: roguelikeitems_1_43
+    - name: junk4
       rect:
         serializedVersion: 2
         x: 49
@@ -651,7 +651,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: roguelikeitems_1_44
+    - name: junk5
       rect:
         serializedVersion: 2
         x: 65
@@ -661,7 +661,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: roguelikeitems_1_45
+    - name: junk6
       rect:
         serializedVersion: 2
         x: 81
@@ -671,7 +671,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: roguelikeitems_1_46
+    - name: junk7
       rect:
         serializedVersion: 2
         x: 97
