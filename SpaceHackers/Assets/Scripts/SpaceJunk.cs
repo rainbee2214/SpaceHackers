@@ -7,6 +7,8 @@ public class SpaceJunk : Collectable
     SpriteRenderer spriteRenderer;
     public List<Sprite> sprites;
 
+    int currentSprite;
+
     public void Start()
     {
         SetSprite();
@@ -18,6 +20,11 @@ public class SpaceJunk : Collectable
         sprites = new List<Sprite>();
         for (int i = 0; i < 7; i++ ) //Doesn't like this path :(
             sprites.Add(Resources.Load("Sprites/Resource/junk" + i, typeof(Sprite)) as Sprite);
+    }
+
+    public int GetRandomSprite()
+    {
+        return Random.Range(0, sprites.Count);
     }
 
     public void OnTriggerEnter2D(Collider2D other)

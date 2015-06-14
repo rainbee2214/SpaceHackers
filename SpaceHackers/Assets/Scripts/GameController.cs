@@ -13,6 +13,13 @@ public class GameController : MonoBehaviour
 
     #region Properties
 
+    int spaceJunk = 0;
+    public int SpaceJunk
+    {
+        get { return spaceJunk; }
+        set { spaceJunk += value; }
+    }
+    
     int shieldCount = 3;
     public int ShieldCount
     {
