@@ -13,15 +13,12 @@ public class SpaceJunk : Collectable
     {
         LoadSprites();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        //spriteRenderer.sprite = sprites[GetRandomSprite()];
-        
+        TurnOn();
     }
 
     void LoadSprites()
     {
-        sprites = new List<Sprite>();
-        for (int i = 0; i < 7; i++ ) //Doesn't like this path :(
-            sprites.Add(Resources.Load("Sprites/Resource/junk" + i, typeof(Sprite)) as Sprite);
+        CollectableController.GetSprites(ref sprites, CollectableController.SpriteType.SpaceJunk);
     }
 
     public int GetRandomSprite()
@@ -31,6 +28,7 @@ public class SpaceJunk : Collectable
 
     public override void TurnOn()
     {
+        Debug.Log("Turning on");
         //spriteRenderer.sprite = sprites[GetRandomSprite()];
     }
 

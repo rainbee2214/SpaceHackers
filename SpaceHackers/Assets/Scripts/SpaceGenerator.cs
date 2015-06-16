@@ -47,7 +47,6 @@ public class SpaceGenerator : MonoBehaviour
         sectorLocations = new List<Vector2>();
         solarSystems = new List<SolarSystem>();
         baseStars = new List<GameObject>();
-        Vector2 position = Vector2.zero;
 
         BuildSectorPoints();
         for(int i = 0; i < poolSize; i++)

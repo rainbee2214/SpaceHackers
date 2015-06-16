@@ -31,7 +31,6 @@ public class Star : MonoBehaviour
     {
         if (!stop)
         {
-            Vector3 position = Vector3.zero;
             for (int i = 0; i < planetRotations.Count; i++)
             {
                 planetRotations[i].Rotate(transform.position);
@@ -58,7 +57,7 @@ public class Star : MonoBehaviour
 
         for (int i = 0; i < numberOfPlanets; i++)
         {
-            r = Random.Range(radius/20, radius/4);
+            r = Random.Range(radius / 20, radius / 4);
             location.Set(r, location.y, -1f);
             planets.Add(Instantiate(PlanetGenerator.GetPlanet(), location, Quaternion.identity) as GameObject);
             planets[i].transform.SetParent(transform);
@@ -69,7 +68,7 @@ public class Star : MonoBehaviour
         for (int i = 0; i < planets.Count; i++)
         {
             planetRotations.Add(planets[i].GetComponent<PlanetRotation>());
-            planetRotations[planetRotations.Count - 1].radius = planets[planetRotations.Count-1].transform.position.x;
+            planetRotations[planetRotations.Count - 1].radius = planets[planetRotations.Count - 1].transform.position.x;
             planetRotations[planetRotations.Count - 1].theta = Random.Range(0, Mathf.PI * 2);
             planetRotations[planetRotations.Count - 1].speed = Random.Range(MIN_SPEED, MAX_SPEED);
         }
