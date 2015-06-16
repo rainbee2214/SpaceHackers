@@ -11,11 +11,13 @@ public class SpaceJunk : Collectable
 
     public void Start()
     {
-        SetSprite();
+        LoadSprites();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        //spriteRenderer.sprite = sprites[GetRandomSprite()];
         
     }
 
-    void SetSprite()
+    void LoadSprites()
     {
         sprites = new List<Sprite>();
         for (int i = 0; i < 7; i++ ) //Doesn't like this path :(
@@ -27,16 +29,22 @@ public class SpaceJunk : Collectable
         return Random.Range(0, sprites.Count);
     }
 
-    public void OnTriggerEnter2D(Collider2D other)
+    public override void TurnOn()
     {
-        Debug.Log(other.name);
-        gameObject.SetActive(false);
+        //spriteRenderer.sprite = sprites[GetRandomSprite()];
     }
-    
+
+    public void TurnOn(int spriteIndex)
+    {
+        spriteRenderer.sprite = sprites[spriteIndex];
+    }
+
+
     public override void Collect()
     {
         //base.Collect();
         Debug.Log("SpaceJunk!" + this.name);
+        gameObject.SetActive(false);
 
         //Turn off and return yourself to the object pool of collectables.
     }
