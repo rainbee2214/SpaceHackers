@@ -43,7 +43,7 @@ public class SpaceJunk : Collectable
         //base.Collect();
         Debug.Log("SpaceJunk!" + this.name);
         gameObject.SetActive(false);
-
+        GameController.controller.SpaceJunk = value;
         //Turn off and return yourself to the object pool of collectables.
     }
 }

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class Collectable : MonoBehaviour 
 {
+    protected int value = 1;
+
     public virtual void Collect()
     {
         Debug.Log("Collectable :)" + this.name);

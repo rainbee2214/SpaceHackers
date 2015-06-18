@@ -32,5 +32,4 @@ public class CollectableController : MonoBehaviour
             sprites.Add(Resources.Load("Sprites/Resource/"+resource + i, typeof(Sprite)) as Sprite);
     }
 
-
 }
