@@ -16,16 +16,11 @@ public class CollectableController : MonoBehaviour
     public static void GetSprites(ref List<Sprite> sprites, SpriteType spriteType)
     {
         string resource = "junk";
+        int max = 0;
         switch(spriteType)
         {
-            case SpriteType.SpaceJunk: resource = "junk"; break;
-            case SpriteType.SpaceOrganics: resource = "organics"; break;
-        }
-        int max = 0;
-        switch (spriteType)
-        {
-            case SpriteType.SpaceJunk: max = NUM_JUNK_SPRITES; break;
-            case SpriteType.SpaceOrganics: max = NUM_ORGNICS_SPRITES; break;
+            case SpriteType.SpaceJunk: resource = "junk"; max = NUM_JUNK_SPRITES; break;
+            case SpriteType.SpaceOrganics: resource = "organics"; max = NUM_ORGNICS_SPRITES; break;
         }
         sprites = new List<Sprite>();
         for (int i = 0; i < max; i++) //Doesn't like this path :( Going to change the names later when I rename the assets
